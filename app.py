@@ -31,7 +31,7 @@ def get_answer():
     link_img = ans['links']
     #print(res['content'])
 
-    return res['content'] +"link -->" + link_img
+    return res['content'] +"link -->" + link_img[0]
 
 @app.route('/')
 def hello():
