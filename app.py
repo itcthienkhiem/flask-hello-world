@@ -5,6 +5,7 @@
 
 #from flask import Flask
 from bardapi import Bard
+
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -32,7 +33,7 @@ def get_answer():
     link_img = ans['links']
     #print(res['content'])
 
-    return res['content'] +"link -->" + link_img[0]
+    return res['content'] +"link -->"
 
 @app.route('/')
 def hello():
