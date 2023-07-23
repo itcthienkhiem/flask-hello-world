@@ -1,3 +1,2 @@
 Flask
-bardapi
 Gunicorn

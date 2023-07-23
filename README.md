@@ -1,28 +1,82 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask&demo-title=Flask%20%2B%20Vercel&demo-description=Use%20Flask%202%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+# Bard <img src="https://www.gstatic.com/lamda/images/favicon_v1_150160cddff7f294ce30.svg" width="35px" />
+Reverse engineering of Google's Bard chatbot API
 
-# Flask + Vercel
-
-This example shows how to use Flask 2 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
-
-## Demo
-
-https://flask-python-template.vercel.app/
-
-## How it Works
-
-This example uses the Web Server Gateway Interface (WSGI) with Flask to enable handling requests on Vercel with Serverless Functions.
-
-## Running Locally
-
+## Installation
 ```bash
-npm i -g vercel
-vercel dev
+ $ pip3 install --upgrade GoogleBard
 ```
 
-Your Flask application is now available at `http://localhost:3000`.
+## Authentication
+Go to https://bard.google.com/
 
-## One-Click Deploy
+- F12 for console
+- Copy the values
+  - Session: Go to Application → Cookies → `__Secure-1PSID` and `__Secure-1PSIDTS`. Copy the value of those cookie.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+## Usage
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask&demo-title=Flask%20%2B%20Vercel&demo-description=Use%20Flask%202%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+```bash
+$ python3 -m Bard -h
+usage: Bard.py [-h] --session <__Secure-1PSID> --session_ts <__Secure-1PSIDTS>
+
+options:
+  -h, --help         show this help message and exit
+  --session --session_ts       pass two cookies
+```
+
+### Quick mode
+```
+$ export BARD_QUICK="true"
+$ export BARD__Secure_1PSID="<__Secure-1PSID>"
+$ export BARD__Secure_1PSIDTS="<__Secure-1PSIDTS>"
+$ python3 -m Bard
+```
+Environment variables can be placed in .zshrc.
+
+Example bash shortcut:
+```bash
+# USAGE1: bard QUESTION
+# USAGE2: echo "QUESTION" | bard
+bard () {
+	export BARD_QUICK=true
+	export BARD__Secure_1PSID=<__Secure-1PSID>
+	export BARD__Secure_1PSIDTS=<__Secure-1PSIDTS>
+	python3 -m Bard "${@:-$(</dev/stdin)}" | tail -n+7
+}
+```
+
+### Implementation:
+```python
+from os import environ
+from Bard import Chatbot
+
+Secure_1PSID = environ.get("BARD__Secure_1PSID")
+Secure_1PSIDTS = environ.get("BARD__Secure_1PSIDTS")
+chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
+
+answer = chatbot.ask("Hello, how are you?")
+
+print(answer['content']
+```
+
+### Async Implementation:
+```python
+import asyncio
+from os import environ
+from Bard import AsyncChatbot
+
+Secure_1PSID = environ.get("BARD__Secure_1PSID")
+Secure_1PSIDTS = environ.get("BARD__Secure_1PSIDTS")
+
+async def main():
+    chatbot = await AsyncChatbot.create(Secure_1PSID, Secure_1PSIDTS)
+    response = await chatbot.ask("Hello, how are you?")
+    print(response['content'])
+
+asyncio.run(main())
+```
+
+## [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
+
+Credits:
+- [discordtehe](https://github.com/discordtehe) - Derivative of his original reverse engineering
