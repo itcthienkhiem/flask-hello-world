@@ -29,7 +29,7 @@ def get_answer():
     res = bard.get_answer(question)
     #print(res['content'])
 
-    return res['content']
+    return res
 
 @app.route('/')
 def hello():
