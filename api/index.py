@@ -6,7 +6,6 @@
 from flask import Flask
 from bardapi import Bard
 from flask import Flask, request, jsonify
-from bardapi import BardAsync
 app = Flask(__name__)
 
 @app.route('/bardapi/speech')
@@ -25,9 +24,9 @@ def get_answer():
     question = data.get("question","")
 
     #question = "Quán massage chổ nào gần đây？";
-    bard = BardAsync(token='YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ.', language='vietnamese'
-                )
-    res = await bard.get_answer(question)
+    bard = Bard(token='YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ.', language='vietnamese',
+                timeout=30)
+    res = bard.get_answer(question)
     #print(res['content'])
     return res['content']
 
