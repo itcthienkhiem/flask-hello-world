@@ -26,10 +26,12 @@ def get_answer():
 
     #question = "Quán massage chổ nào gần đây？";
     bard = Bard(token='YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ.', language='vietnamese')
-    res = bard.get_answer(question)
+    ans = bard.get_answer(question)
+    res = ans['content']
+    link_img = ans['links']
     #print(res['content'])
 
-    return res
+    return res['content'] +"link -->" + link_img
 
 @app.route('/')
 def hello():
