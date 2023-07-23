@@ -3,9 +3,10 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-from flask import Flask
+#from flask import Flask
 from bardapi import Bard
 from flask import Flask, request, jsonify
+
 app = Flask(__name__)
 
 @app.route('/bardapi/speech')
@@ -27,6 +28,7 @@ def get_answer():
     bard = Bard(token='YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ.', language='vietnamese')
     res = bard.get_answer(question)
     #print(res['content'])
+
     return res['content']
 
 @app.route('/')
