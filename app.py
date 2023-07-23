@@ -31,9 +31,10 @@ def get_answer():
     ans = bard.get_answer(question)
     res = ans['content']
     link_img = ans['links']
-    #print(res['content'])
 
-    return res['content'] +"link -->" + len(link_img)
+    print(link_img)
+
+    return res['content']
 
 @app.route('/')
 def hello():
