@@ -34,7 +34,7 @@ def get_answer():
 
     print(link_img)
 
-    return res +"img: " + link_img[0]
+    return res +"img: " + len(link_img)
 
 @app.route('/')
 def hello():
