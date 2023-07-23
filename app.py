@@ -25,7 +25,8 @@ def get_answer():
     question = data.get("question","")
 
     #question = "Quán massage chổ nào gần đây？";
-    bard = Bard(token='YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ.', language='vietnamese')
+    #bard = Bard(token='YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ.', language='vietnamese')
+    bard = Bard(token_from_browser=True)
     ans = bard.get_answer(question)
     res = ans['content']
     link_img = ans['links']
