@@ -24,30 +24,32 @@ app = Flask(__name__)
 
 @app.route('/bardapi/',methods=('POST','GET'))
 def get_answer():
-    data = request.get_json()
-    question = data.get("question","")
+    try:
+        data = request.get_json()
+        question = data.get("question","")
 
-    Secure_1PSID = os.environ['Secure_1PSID']
-        #"YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ."
-    Secure_1PSIDTS =os.environ['Secure_1PSIDTS']
-    #"sidts-CjEBPu3jIZCErivtDia39Tng0bJ2JoH1EP0-mUpQu3f-ekC7Svo1zpT83WTPrfs65qimEAA"
+        Secure_1PSID = os.environ['Secure_1PSID']
+            #"YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ."
+        Secure_1PSIDTS =os.environ['Secure_1PSIDTS']
+        #"sidts-CjEBPu3jIZCErivtDia39Tng0bJ2JoH1EP0-mUpQu3f-ekC7Svo1zpT83WTPrfs65qimEAA"
 
-    chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
+        chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
 
-    answer = chatbot.ask(question)
-    print(answer)
+        answer = chatbot.ask(question)
+        print(answer)
 
-    #question = "Quán massage chổ nào gần đây？";
-#    bard = Bard(token='YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ.', language='vietnamese')
-    #bard = Bard(token_from_browser=True)
-#    ans = bard.get_answer(question)
-#    res = ans['content']
-#    link_img = ans['links']
+        #question = "Quán massage chổ nào gần đây？";
+    #    bard = Bard(token='YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ.', language='vietnamese')
+        #bard = Bard(token_from_browser=True)
+    #    ans = bard.get_answer(question)
+    #    res = ans['content']
+    #    link_img = ans['links']
 
- #   print(link_img)
+     #   print(link_img)
 
-    return answer
-
+        return answer
+    except Exception:
+        return jsonify("error")
 @app.route('/')
 def hello():
     return 'Hello, World!'
