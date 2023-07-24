@@ -31,7 +31,7 @@ def get_answer():
 
     chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
 
-    answer = chatbot.ask("10 places to visit in the world?")
+    answer = chatbot.ask(question)
     print(answer)
 
     #question = "Quán massage chổ nào gần đây？";
