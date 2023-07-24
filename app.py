@@ -8,6 +8,7 @@
 
 from flask import Flask, request, jsonify
 from Bard import Chatbot
+
 app = Flask(__name__)
 
 #@app.route('/bardapi/speech')
