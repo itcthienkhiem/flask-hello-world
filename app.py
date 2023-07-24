@@ -8,6 +8,7 @@
 
 from flask import Flask, request, jsonify
 from Bard import  Chatbot
+import os
 
 app = Flask(__name__)
 
@@ -26,8 +27,10 @@ def get_answer():
     data = request.get_json()
     question = data.get("question","")
 
-    Secure_1PSID = "YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ."
-    Secure_1PSIDTS = "sidts-CjEBPu3jIZCErivtDia39Tng0bJ2JoH1EP0-mUpQu3f-ekC7Svo1zpT83WTPrfs65qimEAA"
+    Secure_1PSID = os.environ['Secure_1PSID']
+        #"YgjdenmnVllP0049BbUVYL7_U8yPtf34t76GZNAqfrisYEUEkA4so6W30BHZpBPyFdGmhQ."
+    Secure_1PSIDTS =os.environ['Secure_1PSIDTS']
+    #"sidts-CjEBPu3jIZCErivtDia39Tng0bJ2JoH1EP0-mUpQu3f-ekC7Svo1zpT83WTPrfs65qimEAA"
 
     chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
 
